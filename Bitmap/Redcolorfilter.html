@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>赤色強調フィルター</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    // イメージ描画
+    var img = new Image();
+    img.src = "cat.jpg";
+    img.onload = function() {
+        context.drawImage(img, 0, 0);
+
+        var w = img.width;
+        var h = img.height;
+        var imageData = context.getImageData(0, 0, w, h);
+        // ピクセル値を取得する
+        var pixelImage = context.createImageData(w, h);
+        // フィルター処理    
+        for(var y=0; y<h; y++){
+            for(var x=0; x<w; x++){
+                var ptr = (y * w + x ) * 4;
+                // ピクセル処理する配列の要素位置を計算            
+                var R = imageData.data[ptr + 0];
+                var G = imageData.data[ptr + 1];
+                var B = imageData.data[ptr + 2];
+
+                R = R  * 2;
+                if (R > 255) R = 255;
+                G = Math.floor(G / 2);
+                B = Math.floor(B / 2);
+                pixelImage.data[ptr + 0] = R;
+                pixelImage.data[ptr + 1] = G;
+                pixelImage.data[ptr + 2] = B;
+                pixelImage.data[ptr + 3] = 255;
+            }
+        }
+        context.putImageData(pixelImage, 0, 150);
+    }
+};
+
+// -->
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>
+
+

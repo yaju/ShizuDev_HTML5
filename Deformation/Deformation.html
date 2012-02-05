@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<head>
+<title>画像変形サンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+var mouse = {x: 0, y: 0};
+var offset = {x: 50, y: 50};
+var offset2 = {x: 250*2, y: 80*2};
+
+//ロード時
+onload = function () {
+
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    // イメージ描画
+    var img = new Image();
+    img.src = "cat.jpg";
+    img.onload = function() {
+        context.drawImage(img, offset.x, offset.y);
+    }
+    //マウスを移動させると画像が回転する
+    canvas.addEventListener('mousemove', function(e) {
+        var rect = e.target.getBoundingClientRect();
+        var origin = {x: 0, y: 0};
+        var origin2 = {x: 0, y: 0};
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+        origin.x = img.width / 2 + offset.x;
+        origin.y = img.height/ 2 + offset.y;
+        origin2.x = img.width / 2 + offset2.x;
+        origin2.y = img.height/ 2 + offset2.y;
+
+        if(mouse.x !== 0 || mouse.y !== 0) {
+            var rad = Math.atan2(mouse.y - origin.y,mouse.x - origin.x);
+            var degrees = -Math.floor(rad * 180 / Math.PI);
+            if(degrees < 0) degrees = degrees + 360;
+
+            context.clearRect(0,0,canvas.width,canvas.height);
+
+            context.save();
+            context.fillText("X座標：" + mouse.x, 5, 12);
+            context.fillText("Y座標：" + mouse.y, 5, 24);
+            context.fillText("角度 ：" + degrees, 5, 36);
+
+            //setTransformにて表示
+            //原点を画像の中心にして回転
+            context.setTransform(Math.cos(rad), Math.sin(rad), -Math.sin(rad), Math.cos(rad), origin.x, origin.y);
+            //原点を元に戻して描画
+            context.drawImage(img, offset.x - origin.x, offset.y - origin.y);
+            context.restore();
+
+            //縮小してtranslateとtransformにて表示
+            context.save();
+            //半分に縮小
+            context.scale(0.5, 0.5);
+            //原点を画像の中心にする
+            context.translate(origin2.x, origin2.y)
+            //回転
+            context.transform(Math.cos(rad), Math.sin(rad), -Math.sin(rad), Math.cos(rad), 0, 0);
+            //原点を元に戻す
+            context.translate(-origin2.x, -origin2.y)
+            //描画
+            context.drawImage(img, offset2.x, offset2.y);
+            context.restore();
+        }
+    }, false);
+};
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>
+

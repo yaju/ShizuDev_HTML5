@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<head>
+<title>画像トリミングサンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+
+//ロード時
+onload = function () {
+
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    // イメージ描画
+    var img = new Image();
+    img.src = "cat.jpg";
+    img.onload = function() {
+        context.drawImage(img, 0, 0);
+        context.drawImage(img, 60, 50, 50, 50, 200, 0, 60, 60);
+    }
+};
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>
+

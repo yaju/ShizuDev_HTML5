@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>パターンサンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    //img要素を生成
+    var image = new Image();
+    image.onload = function() {
+        //img要素の繰り返しパターン生成
+        var pattern = context.createPattern(image, "repeat");
+        //塗りつぶしパターンに指定
+        context.fillStyle = pattern; 
+        //canvasの描画
+        context.fillRect(0, 0, 300, 300); 
+    };
+    //img要素読み込み
+    image.src = "butterfly.png"
+};
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>

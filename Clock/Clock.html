@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>時計サンプル</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<link rel="stylesheet" href="clockstyle.css" type="text/css" media="screen">
+</head>
+<body>
+<script type="text/javascript">
+var context;
+var clock_width;
+var center = {x : 0, y : 0};
+
+window.onload = function () {
+    // キャンバスとコンテキストの誌錡
+    var canvas = document.getElementById("clock_canvas");
+    context = canvas.getContext("2d");
+
+    //画面サイズに合わせてキャンバスのサイズを調整
+    //canvas.width = document.width;
+    //canvas.height = document.height;
+    //縦幅と横幅でサイズが大きい方を横幅とする
+    clock_width = (canvas.width > canvas.height) ? canvas.height : canvas.width;
+    //中心点をセット
+    center.x = center.y = clock_width / 2;
+
+    // タイマーをセット
+    var timer_id = setInterval(showTime, 500);
+}
+
+// 時計を描画
+function showTime() {
+    var now = new Date(); // 現在時刻の誌錡
+    var h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+
+    // 背景を描画
+    context.fillStyle = "white";
+    context.fillRect(0,0, clock_width, clock_width);
+    context.fillStyle = "rgb(220,220,255)";
+    context.beginPath();
+    context.strokeStyle = "cornflowerblue";
+    context.linewidth = 3
+    context.arc(center.x, center.y, center.x, 0, 2*Math.PI, true);
+    context.stroke();
+
+    // 短針を描画
+    h = h % 12; // アナログ時計は12時間
+    drawHand2(360 * (h / 12) + 30 * (m / 60), center.x * 0.5, "blue", 5);
+
+    // 長針を描画
+    drawHand2(360 * (m / 60) + 6 * (s / 60), center.x * 0.8, "red", 5);
+
+    // 秒針を描画
+    drawHand(360 * (s / 60), center.x * 0.9, "black", 2);
+
+    // 中心円
+    context.beginPath();
+    context.fillStyle = "black";
+    context.arc(center.x, center.y, 5, 0, 2*Math.PI, true);
+    context.fill();
+}
+// 線を描画する
+function drawLine(x1, y1, x2, y2) {
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.stroke();
+}
+
+// 時計の針を描画する
+function drawHand(deg, len, color, wid) {
+    deg = deg - 90;                  // 90度左回転
+    var rad = (Math.PI / 180 * deg); // 度からラジアンに変換
+    var x = center.x + Math.cos(rad) * len;
+    var y = center.y + Math.sin(rad) * len;
+    context.strokeStyle = color;
+    context.lineWidth = wid;
+    context.lineCap = "round";
+    drawLine(center.x, center.y, x, y);
+}
+
+// 時計の針を描画する
+function drawHand2(deg, len, color, hig) {
+
+    context.save();
+    deg = deg - 90;                  // 90度左回転
+    var rad = (Math.PI / 180 * deg); // 度からラジアンに変換
+    //回転する変換マトリックスを定義
+    context.setTransform(Math.cos(rad), Math.sin(rad), -Math.sin(rad), Math.cos(rad), center.x, center.y);
+    //図形を描画
+    context.fillStyle = color;
+    context.fillRect(0, 0, len, hig);
+    context.restore();
+}
+</script>
+<div id="frame">
+<table>
+<td>
+<canvas id="clock_canvas"></canvas>
+</td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>矩形サンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    //strokeRect
+    context.lineWidth = 1; //線の太さ
+    context.strokeStyle = 'rgb(255, 0, 0)'; //赤色
+    context.strokeRect(20, 30, 60, 40);
+
+    //fillRect
+    context.fillStyle = 'rgb(0, 255, 0)'; //緑色
+    context.fillRect(20, 100, 60, 40);
+
+    //clearRect
+//  context.clearRect(40, 100, 20, 40);
+
+    //色指定 strokeStyle
+    context.strokeStyle = 'red'; //カラーネームで指定
+    context.strokeRect(20, 170, 10, 40);
+    context.strokeStyle = 'rgb(255,0,0)'; //10進RGBで指定
+    context.strokeRect(40, 170, 10, 40);
+    context.strokeStyle = 'rgba(255,0,0,0.5)'; //10進RGBAで指定
+    context.strokeRect(60, 170, 10, 40);
+    context.strokeStyle = '#ff0000'; //16進数で指定 #RRGGBB
+    context.strokeRect(80, 170, 10, 40);
+
+    //色指定 fillStyle
+    context.fillStyle = 'blue'; //カラーネームで指定
+    context.fillRect(20, 240, 10, 40);
+    context.fillStyle = 'rgb(0,0,255)'; //10進RGBで指定
+    context.fillRect(40, 240, 10, 40);
+    context.fillStyle = 'rgba(0,0,255,0.5)'; //10進RGBAで指定
+    context.fillRect(60, 240, 10, 40);
+    context.fillStyle = '#0000ff'; //16進数で指定 #RRGGBB
+    context.fillRect(80, 240, 10, 40);
+};
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>

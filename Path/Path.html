@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>パスサンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    context.save();
+
+    //パスを使った三角形の描画 closePath有り
+    context.beginPath();      //パスのリセット
+    context.moveTo(10,90);    //開始支点
+    context.lineTo(50,10);    //線
+    context.lineTo(90,90);
+    context.closePath();      //パスを閉じる
+    context.stroke();         //線描画
+
+    //パスを使った三角形の描画 closePath無し
+    context.translate(100,0);
+    context.beginPath();      //パスのリセット
+    context.moveTo(10,90);    //開始支点
+    context.lineTo(50,10);    //線
+    context.lineTo(90,90);
+    context.stroke();         //線描画
+
+    //パスを使った三角形の描画 closePath無し
+    context.translate(100,0);
+    context.beginPath();      //パスのリセット
+    context.moveTo(10,90);    //開始支点
+    context.lineTo(50,10);    //線
+    context.lineTo(90,90);
+    context.fill();           //塗りつぶし描画
+
+    context.restore();
+    context.save();
+    context.translate(0,100);
+
+    //塗られた三角形を描く
+    context.beginPath();
+    context.moveTo(25,25);
+    context.lineTo(105,25);
+    context.lineTo(25,105);
+    context.fill();
+
+    //輪郭の描かれた三角形を描く
+    context.beginPath();
+    context.moveTo(125,125);
+    context.lineTo(125,45);
+    context.lineTo(45,125);
+    context.closePath();
+    context.stroke();
+
+    //線と円 顔を描く
+    context.translate(120,0);
+    context.beginPath();
+    context.arc(75,75,50,0,Math.PI*2,true); // 外の円
+    context.moveTo(110,75);
+    context.arc(75,75,35,0,Math.PI,false);  // 口 (時計回り)
+    context.moveTo(65,65);
+    context.arc(60,65,5,0,Math.PI*2,true);  // 左目
+    context.moveTo(95,65);
+    context.arc(90,65,5,0,Math.PI*2,true);  // 右目
+    context.stroke();
+
+    //円弧を描く
+    context.translate(140,0);
+    for (i=0;i<4;i++){
+      for(j=0;j<3;j++){
+        context.beginPath();
+        var x              = 25+j*50;               // x 座標
+        var y              = 25+i*50;               // y 座標
+        var radius         = 20;                    // 円弧の半径
+        var startAngle     = 0;                     // 円の始点
+        var endAngle       = Math.PI+(Math.PI*j)/2; // 円の終点
+        var clockwise  = i%2==0 ? false : true;     // 時計回りまたは半時計回り
+
+        context.arc(x,y,radius,startAngle,endAngle, clockwise);
+
+        if (i>1){
+          context.fill();
+        } else {
+          context.stroke();
+        }
+      }
+    }
+
+    //ベジェ曲線 ハートを描く
+    context.restore();
+    context.translate(0,220);
+	context.beginPath();
+	context.moveTo(75,40);
+	context.bezierCurveTo(75,37,70,25,50,25);
+	context.bezierCurveTo(20,25,20,62.5,20,62.5);
+	context.bezierCurveTo(20,80,40,102,75,120);
+	context.bezierCurveTo(110,102,130,80,130,62.5);
+	context.bezierCurveTo(130,62.5,130,25,100,25);
+	context.bezierCurveTo(85,25,75,37,75,40);
+	//ピンクで塗りつぶす
+	context.fillStyle = 'rgb(255,187,255)'
+	context.fill();
+};
+</script>
+<canvas id="my_canvas" width="400" height="400"></canvas>
+</body>
+</html>

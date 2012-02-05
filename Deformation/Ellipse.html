@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<head>
+<title>楕円サンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+
+//ロード時
+onload = function () {
+
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    //元の円を赤色で描く
+    context.beginPath();
+    context.arc(25, 50, 20, 0, 2 * Math.PI, false);
+    context.strokeStyle = "red";
+    context.stroke();
+
+    //楕円を描く
+    //横に2倍、縦に0.7倍した円を青色で描く
+    context.beginPath();
+    context.scale(2, 0.7);
+    context.arc(25, 50, 20, 0, 2 * Math.PI, false);
+    context.strokeStyle = "blue";
+    context.stroke();
+}
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>
+

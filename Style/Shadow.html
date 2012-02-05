@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>影サンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    //影色の指定
+    context.shadowColor = 'gray';
+    //影を表示する座標
+    context.shadowOffsetX = 8;
+    context.shadowOffsetY = 8;
+    //影のぼかし幅
+    context.shadowBlur = 5;
+    context.strokeRect(30, 30, 200, 100);
+    context.fillRect(30, 30, 200, 100);
+
+    //緑色の四角線に青色の影
+    context.lineWidth = 20;
+    context.strokeStyle = 'green';      //色は緑
+    context.shadowColor = "blue";       //影の色は青
+    context.shadowOffsetX = 10;
+    context.shadowOffsetY = 5;
+    context.shadowBlur = 5;
+    context.lineJoin = "round";         //丸めた接合部
+    context.strokeRect(50,180,100,100);
+
+    //黄色の円に赤色の影
+    context.fillStyle = 'yellow';       //色は黄色
+    context.shadowColor = "red";        //影の色は赤
+    context.shadowOffsetX = 0;
+    context.shadowOffsetY = 0;
+    context.shadowBlur = 50;
+    context.beginPath();
+    context.arc(300, 230, 50, 0, Math.PI*2, false);
+    context.fill();
+
+};
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>

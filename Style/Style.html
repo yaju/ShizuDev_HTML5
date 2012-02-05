@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>スタイルサンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    //-- 線の幅を指定 --
+    //lineWidth
+    context.beginPath();
+    context.lineWidth = 5; //線幅を5に設定
+    context.moveTo(20, 5);
+    context.lineTo(300, 5);
+    context.stroke();
+
+    context.lineWidth = 20; //線幅を20に設定
+
+    //-- 端部を指定 --
+    //butt
+    context.beginPath();
+    context.lineCap = "butt"; //フラットな端部(デフォルト)
+    context.moveTo(20, 30);
+    context.lineTo(300, 30);
+    context.stroke();
+
+    //round
+    context.beginPath();
+    context.lineCap = "round"; //丸めた端部
+    context.moveTo(20, 70);
+    context.lineTo(300, 70);
+    context.stroke();
+
+    //square
+    context.beginPath();
+    context.lineCap = "square"; //囲まれた端部
+    context.moveTo(20, 110);
+    context.lineTo(300, 110);
+    context.stroke();
+
+    //-- 接合部の限界 --
+    //miter
+    context.beginPath();
+    context.lineJoin = "miter"; //面取りのない接合部(デフォルト)
+    context.moveTo(20, 200);
+    context.lineTo(60, 150);
+    context.lineTo(100, 200);
+    context.stroke();
+
+    //bevel
+    context.beginPath();
+    context.lineJoin = "bevel"; //面取りした接合部
+    context.moveTo(120, 200);
+    context.lineTo(160, 150);
+    context.lineTo(200, 200);
+    context.stroke();
+
+    //round
+    context.beginPath();
+    context.lineJoin = "round"; //丸めた接合部
+    context.moveTo(220, 200);
+    context.lineTo(260, 150);
+    context.lineTo(300, 200);
+    context.stroke();
+
+    //-- 接合部の限界 --
+    //線の接合箇所をmiter表示にする限界を比率で指定(0より大きい有限の数値のみ、初期値は10.0)
+    //尖った部分の距離を超えて飛び出す箇所はbevel表示(面取り)
+    //デフォルト
+    context.beginPath();
+    context.lineJoin = "miter";
+    context.moveTo(20, 300);
+    context.lineTo(60, 230);
+    context.lineTo(100, 300);
+    context.stroke();
+
+    //miterLimit = 2;
+    context.beginPath();
+    context.miterLimit = 2;     //比率 = 2 を指定
+    context.moveTo(120, 300);
+    context.lineTo(160, 230);
+    context.lineTo(200, 300);
+    context.stroke();
+
+    //miterLimit = 5;
+    context.beginPath();
+    context.miterLimit = 5;     //比率 = 5 を指定
+    context.moveTo(220, 300);
+    context.lineTo(260, 230);
+    context.lineTo(300, 300);
+    context.stroke();
+};
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>

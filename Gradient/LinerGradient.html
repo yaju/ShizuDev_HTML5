@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>線形グラデーションサンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    context.save();
+    //線形グラデーションを指定する
+    var gradient = context.createLinearGradient(20,20,70,70);
+    //赤→緑→青のグラデーション色を３つ追加
+    gradient.addColorStop(0.0 , 'rgb(255,0,0)');
+    gradient.addColorStop(0.5 , 'rgb(0,255,0)');
+    gradient.addColorStop(1.0 , 'rgb(0,0,255)');
+    //グラデーションをfillStyleプロパティにセット
+    context.fillStyle = gradient;
+    //矩形を描画
+    context.rect(20,20,50,50);
+    context.fill();
+
+    //左上原点(0,0)で考えてからtranslateメソッドで図形を移動させた方が思い描いたグラデーションになる
+    context.translate(200, 20);
+    gradient = context.createLinearGradient(0, 0, 50, 0);
+    gradient.addColorStop(0, "white");
+    gradient.addColorStop(1.0, "blue");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 50, 50);
+    context.restore();
+
+    //２色水平グラデーション
+    context.translate(20, 100);
+    gradient = context.createLinearGradient(0, 0, 0, 150);
+    gradient.addColorStop(0,'rgb(255, 100, 100)');    // red
+    gradient.addColorStop(1,'rgb(100, 100, 255)');    // blue
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 150, 150);
+
+    context.save();
+    //３色水平グラデーション
+    context.translate(170, 0);
+    gradient = context.createLinearGradient(0, 0, 0, 150);
+    gradient.addColorStop(0,'rgb(255, 100, 100)');    // red
+    gradient.addColorStop(0.4,'rgb(100, 255, 100)');  // green
+    gradient.addColorStop(0.8,'rgb(100, 100, 255)');  // blue
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 150, 150);
+
+    //３色水平グラデーション 三角形
+    context.translate(170, 0);
+    context.beginPath();
+    gradient = context.createLinearGradient(0, 0, 0, 150);
+    gradient.addColorStop(0,'rgb(255, 100, 100)');    // red
+    gradient.addColorStop(0.4,'rgb(100, 255, 100)');  // green
+    gradient.addColorStop(0.8,'rgb(100, 100, 255)');  // blue
+    context.strokeStyle = gradient;
+    context.lineWidth = 5;
+    context.moveTo(75, 10);
+    context.lineTo(10, 140);
+    context.lineTo(140,140);
+    context.closePath();
+    context.stroke();
+
+    //３色垂直グラデーション
+    context.restore();
+    context.translate(0, 170);
+    gradient = context.createLinearGradient(0, 0, 150, 0);
+    gradient.addColorStop(0,'rgb(255, 160, 160)');    // red
+    gradient.addColorStop(0.6,'rgb(160, 255, 160)');  // green
+    gradient.addColorStop(0.8,'rgb(160, 160, 255)');  // blue
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 150, 150);
+
+    //３色斜形グラデーション
+    context.translate(170, 0);
+    gradient = context.createLinearGradient(0, 0, 150, 150);
+    gradient.addColorStop(0.3,'rgb(255, 100, 100)');  // red
+    gradient.addColorStop(0.8,'rgb(100, 100, 255)');  // blue
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 150, 150);
+};
+</script>
+<canvas id="my_canvas" width="600" height="600"></canvas>
+</body>
+</html>

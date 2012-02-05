@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>テキストサンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    context.font = "20pt Arial";
+    context.fillText("Sample String", 10, 50);
+
+    var message = "輪郭文字";
+    //表示するテキストの幅を取得する
+    var textWidth = context.measureText(message).width;
+    var textHeight = 32;
+    //テキストの背景を描画
+    context.fillStyle = "pink";
+    context.fillRect(10,65,textWidth,textHeight);
+    //テキスト描画
+    context.strokeText(message, 10, 90);
+
+    context.fillStyle = "blue";
+    //拡大
+    context.scale(2,1.5);
+    context.fillText("拡大",60,100);
+    //拡大を元に戻す
+    context.scale(1 / 2, 1 / 1.5);
+    var angle = 20 * Math.PI / 180;
+    //回転
+    context.rotate(angle);
+    context.fillText("回転",60,140);
+    //回転を元に戻す
+    context.rotate(-angle);
+
+    //移動
+    context.translate(60,160);
+    context.fillText("移動",60,30);
+    //移動を元に戻す
+    context.translate(-60,-160);
+};
+</script>
+<canvas id="my_canvas" width="400" height="300"></canvas>
+</body>
+</html>

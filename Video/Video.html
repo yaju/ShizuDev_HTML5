@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<head>
+<title>鏡像サンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+var canvas;
+var context;
+var video;
+
+//ロード時
+onload = function () {
+    video = document.getElementById('my_video');
+    canvas = document.getElementById('my_canvas');
+    context = canvas.getContext('2d');
+
+    setInterval("processFrame()", 33);
+};
+
+function processFrame(){
+    if(!isNaN(video.duration)){
+        //loop
+        if(video.currentTime == video.duration){
+            video.currentTime = 0;
+        }
+    }
+
+    var wid = video.width;
+    var hei = video.height / 2;
+    context.save();
+    context.setTransform(1, 0, 0, -0.5, 0, hei);
+    context.drawImage(video, 0, 0);
+    context.fillStyle = "rgba(0,0,0,0.3)";
+    context.fillRect(0, 0, wid, hei*2);
+    context.restore();
+}
+
+</script>
+<video id="my_video" autoplay="true" loop="true" width="640" height="360">
+	<source src="http://craftymind.com/factory/html5video/BigBuckBunny_640x360.mp4" type="video/mp4"/>
+	<source src="http://craftymind.com/factory/html5video/BigBuckBunny_640x360.ogv" type="video/ogg"/>
+</video>
+<br>
+<canvas id="my_canvas" width="640" height="180"></canvas>
+</body>
+</html>
+

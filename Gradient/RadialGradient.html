@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>円形グラデーションサンプル</title>
+</head>
+<body>
+<script type="text/javascript">
+onload = function () {
+    var canvas = document.getElementById('my_canvas');
+    var context = canvas.getContext('2d');
+
+    context.save();
+    context.beginPath();
+    //円形グラデーションを指定する
+    var gradient = context.createRadialGradient(140,80,10,140,80,40);
+    //赤→緑→青のグラデーション色を３つ追加
+    gradient.addColorStop(0.0 , 'rgb(255,0,0)');
+    gradient.addColorStop(0.5 , 'rgb(0,255,0)');
+    gradient.addColorStop(1.0 , 'rgb(0,0,255)');
+    context.fillStyle = gradient;
+    context.arc(140, 80, 50 ,0, 2*Math.PI, true);
+    context.fill();
+
+    //左上原点(0,0)で考えてからtranslateメソッドで図形を移動させた方が思い描いたグラデーションになる
+    context.beginPath();
+    context.translate(250, 30);
+    gradient = context.createRadialGradient(40, 40, 0, 50, 50, 200);
+    gradient.addColorStop(0, "white");
+    gradient.addColorStop(1.0, "blue");
+    context.fillStyle = gradient;
+    context.arc(50, 50, 50, 0, 2*Math.PI, true);
+    context.fill();
+    context.restore();
+
+    //３色ドーナツグラデーション
+    context.translate(20, 150);
+    context.beginPath();
+    gradient = context.createRadialGradient(75, 75, 10, 75, 75, 100);
+    gradient.addColorStop(0.2,'rgb(255, 100, 100)');  // red
+    gradient.addColorStop(0.5,'rgb(100, 255, 100)');  // green
+    gradient.addColorStop(1,'rgb(100, 100, 255)');    // blue
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 150, 150);
+
+    //３色彗星左下向きグラデーション
+    context.translate(170, 0);
+    context.beginPath();
+    gradient = context.createRadialGradient(30, 100, 20, 75, 75, 75);
+    gradient.addColorStop(0.2,'rgb(255, 100, 100)');  // red
+    gradient.addColorStop(0.5,'rgb(100, 255, 100)');  // green
+    gradient.addColorStop(1,'rgb(100, 100, 255)');    // blue
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 150, 150);
+
+    //３色彗星右向きグラデーション
+    context.translate(170, 0);
+    context.beginPath();
+    gradient = context.createRadialGradient(50, 75, 150, 100, 75, 10);
+    gradient.addColorStop(0.2,'rgb(255, 100, 100)');  // red
+    gradient.addColorStop(0.5,'rgb(100, 255, 100)');  // green
+    gradient.addColorStop(1,'rgb(100, 100, 255)');    // blue
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 150, 150);
+};
+</script>
+<canvas id="my_canvas" width="600" height="300"></canvas>
+</body>
+</html>

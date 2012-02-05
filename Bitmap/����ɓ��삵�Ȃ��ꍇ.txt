@@ -1,0 +1,17 @@
+﻿getImageDataメソッドはセキュリティの関係でローカルでは動作しないようです。
+※ブラウザ（FireFoxやOperaの最新版）によってはエラーにならず動作するようです。
+http://d.hatena.ne.jp/chiheisen/20100815/1281885412
+
+画像データを取得するだけなのに、なんで同一出身ポリシーを
+適用しているのかというと、不用意に画像がどこかに送信される
+ということを防ぐためだそうです。
+
+
+対処方法
+  Ｗｅｂサーバーを経由する　IISやApache
+  簡易Ｗｅｂサーバー 「HTTP Server Anywhere」を使う(serverと同じフォルダにhtmlファイルを入れる)
+  http://hp.vector.co.jp/authors/VA049605/http_server_anywhere.html
+  80ポートが使われていた場合、空いているポート例8080とする
+
+  http://localhost:8080/redcolorfilter.html
+  Macの方　http://www.futomi.com/lecture/macosx/apache.html
